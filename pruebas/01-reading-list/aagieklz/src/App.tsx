@@ -2,7 +2,7 @@ import Navbar from "./components/navbar";
 import * as data from "../books.json";
 import Book from "./components/book";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import ReadingList from "./components/readingList";
 import { useAvailableList } from "./store/availableListStore";
 import { useZoneRef } from "./store/zoneRefStore";
@@ -25,23 +25,26 @@ import { useZoneRef } from "./store/zoneRefStore";
 function App() {
   // const [books, setBooks] = useState<BookData[]>([]);
   const { books, setBooks } = useAvailableList();
-  const { zoneRef, gridRef, setGridRef, setZoneRef } = useZoneRef();
+  const { setGridRef, setZoneRef } = useZoneRef();
   const dragZone = useRef<HTMLDivElement>(null);
   const gridZone = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setBooks(data.library.map((book) => book.book));
-  }, []);
+  }, [setBooks]);
 
   useEffect(() => {
     setZoneRef(dragZone);
     setGridRef(gridZone);
-  }, [dragZone, gridZone]);
+  }, [dragZone, gridZone, setGridRef, setZoneRef]);
 
   return (
     <>
       <Navbar />
-      <div className="relative z-40 flex items-start justify-start w-full min-h-screen pt-6">
+      <div className="absolute text-5xl font-semibold top-4 left-10">
+        Reading List
+      </div>
+      <div className="relative z-40 flex items-start justify-start w-full min-h-screen pt-14">
         <AnimatePresence>
           <motion.div
             initial={{ x: -100 }}
@@ -53,7 +56,7 @@ function App() {
               damping: 10,
               duration: 1,
             }}
-            className="grid w-3/4 grid-flow-col-dense gap-6 p-8 bg-transparent opacity-100 max-w-3/4"
+            className="grid w-3/4 gap-6 p-8 bg-transparent opacity-100 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1"
           >
             {books
               .sort((a, b) => a.title.localeCompare(b.title))

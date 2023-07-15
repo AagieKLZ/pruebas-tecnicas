@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import { useReadingList } from "../store/readingListStore";
 import { useAvailableList } from "../store/availableListStore";
 import { useZoneRef } from "../store/zoneRefStore";
-import ReadingBook from "./readingBook";
 
 type Props = {
   book: BookData;

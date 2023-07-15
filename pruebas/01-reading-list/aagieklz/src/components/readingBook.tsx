@@ -51,11 +51,11 @@ export default function ReadingBook({ book }: Props) {
       }}
       style={{ boxShadow, y }}
       whileDrag={{ scale: 0.5, zIndex: 1000 }}
-      className="z-50 flex items-center justify-between w-5/6 bg-gray-100 select-none md:h-24 h-36 drop-shadow-lg"
+      className="z-50 flex items-center justify-between w-5/6 bg-gray-100 select-none roounded-lg md:h-28 h-36 drop-shadow-lg"
     >
-      <div className="w-16 min-w-fit">
+      <div className="w-16 rounded-l-lg min-w-fit">
         <img
-          className="w-16 h-24"
+          className="w-16 h-24 rounded-l-lg"
           src={book.cover}
           alt={`${book.title} cover`}
         />
@@ -69,7 +69,7 @@ export default function ReadingBook({ book }: Props) {
           removeBook(book);
           addBook(book);
         }}
-        className="flex items-center justify-center h-full px-4 my-auto border-l border-l-gray-400 w-fit"
+        className="flex items-center justify-center h-full px-4 my-auto border-l rounded-r-lg border-l-gray-400 w-fit"
       >
         <X className="w-6 h-6" />
       </button>

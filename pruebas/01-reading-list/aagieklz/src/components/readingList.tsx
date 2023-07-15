@@ -12,7 +12,7 @@ export default function ReadingList({ dragZone }: Props) {
   return (
     <div
       ref={dragZone}
-      className="fixed top-0 right-0 z-20 flex flex-col items-center w-1/4 h-screen gap-2 py-8 overflow-y-auto border-l bg-gray-50"
+      className="fixed top-0 right-0 z-20 flex flex-col items-center w-1/4 h-screen gap-4 py-8 overflow-y-auto border-l bg-gray-50"
     >
       <AnimatePresence>
         {books.map((book) => (
