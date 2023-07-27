@@ -5,7 +5,13 @@ export default {
     './src/**/*.tsx',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: 'rgb(var(--color-primary))',
+        base: 'rgb(var(--color-base))',
+        secondary: 'rgb(var(--color-secondary))',
+      }
+    },
   },
   plugins: [],
 }

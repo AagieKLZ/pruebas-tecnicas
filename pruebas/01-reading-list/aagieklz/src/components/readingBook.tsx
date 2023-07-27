@@ -1,9 +1,11 @@
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useAnimate, useMotionValue } from "framer-motion";
 import { X } from "lucide-react";
 import { useReadingList } from "../store/readingListStore";
 import { useAvailableList } from "../store/availableListStore";
 import { useRaisedShadow } from "../hooks/use-raised-shadow";
 import { useZoneRef } from "../store/zoneRefStore";
+import { useThemeStore } from "../store/themeStore";
+import { useEffect } from "react";
 
 type Props = {
   book: BookData;
@@ -15,6 +17,17 @@ export default function ReadingBook({ book }: Props) {
   const { addBook } = useAvailableList();
   const y = useMotionValue(0);
   const boxShadow = useRaisedShadow(y);
+  const { theme } = useThemeStore();
+  const [bookRef, animate] = useAnimate();
+  useEffect(() => {
+    if (bookRef.current) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      animate(bookRef.current, {
+        backgroundColor: theme === "light" ? "#fff" : "#020617",
+        color: theme === "light" ? "#000" : "#fff",
+      });
+    }
+  }, [theme, bookRef, animate]);
   return (
     <motion.div
       drag="x"
@@ -51,11 +64,13 @@ export default function ReadingBook({ book }: Props) {
       }}
       style={{ boxShadow, y }}
       whileDrag={{ scale: 0.5, zIndex: 1000 }}
-      className="z-50 flex items-center justify-between w-5/6 bg-gray-100 select-none roounded-lg md:h-28 h-36 drop-shadow-lg"
+      className={`z-50 flex items-center justify-between w-5/6 select-none text-secondary ${
+        theme === "light" ? "bg-gray-50 text-black" : "bg-black text-white"
+      } rounded-lg md:h-28 h-36 drop-shadow-lg`}
     >
-      <div className="w-16 rounded-l-lg min-w-fit">
+      <div className="w-20 rounded-l-lg min-w-fit">
         <img
-          className="w-16 h-24 rounded-l-lg"
+          className="w-20 rounded-l-lg h-28"
           src={book.cover}
           alt={`${book.title} cover`}
         />
