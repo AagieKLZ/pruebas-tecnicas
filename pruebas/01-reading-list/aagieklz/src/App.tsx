@@ -2,11 +2,10 @@ import Navbar from "./components/navbar";
 import * as data from "../books.json";
 import Book from "./components/book";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import ReadingList from "./components/readingList";
 import { useAvailableList } from "./store/availableListStore";
 import { useZoneRef } from "./store/zoneRefStore";
-import { PanelRightOpen } from "lucide-react";
 import { useReadingListModalStore } from "./store/readingListModalStore";
 import { useThemeStore } from "./store/themeStore";
 import { useReadingList } from "./store/readingListStore";
@@ -20,8 +19,8 @@ function App() {
   const gridZone = useRef<HTMLDivElement>(null);
   const [scope, animate] = useAnimate();
   const { modalOpen } = useReadingListModalStore();
-  const [bodyRef, _] = useAnimate();
-  const { theme, setTheme } = useThemeStore();
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const { theme } = useThemeStore();
 
   useEffect(() => {
     const books = JSON.parse(
@@ -64,9 +63,12 @@ function App() {
         width: "100%",
       });
     }
-  }, [modalOpen]);
+  }, [animate, modalOpen]);
 
   useEffect(() => {
+    if (bodyRef.current === null) {
+      return;
+    }
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     animate(bodyRef.current, {
       backgroundColor: theme === "light" ? "#fff" : "#18181b",

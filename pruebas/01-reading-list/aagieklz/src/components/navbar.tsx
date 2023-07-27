@@ -1,19 +1,12 @@
 import { AnimationScope, motion, useAnimate } from "framer-motion";
 import { useReadingListModalStore } from "../store/readingListModalStore";
-import {
-  LightbulbIcon,
-  LightbulbOffIcon,
-  Moon,
-  PanelRightOpen,
-  Search,
-  Sun,
-} from "lucide-react";
-import { DarkSide, Expand } from "@theme-toggles/react";
+import { Moon, PanelRightOpen, Sun } from "lucide-react";
 import { useThemeStore } from "../store/themeStore";
 import { useEffect } from "react";
 import Filters from "./filters";
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   scope: AnimationScope<any>;
 };
 
@@ -76,22 +69,7 @@ export default function Navbar({ scope }: Props) {
           </motion.span>
         ))}
       </div>
-      <div className="flex flex-row items-center justify-center">
-        {/* <div className="relative flex flex-row items-center justify-center">
-          <div className="flex items-center justify-center h-10 px-2 bg-gray-200 border-r rounded-l-full border-r-black">
-            <Search className="w-6 h-6 stroke-1" />
-          </div>
-          <motion.input
-            type="search"
-            name="search"
-            id="search"
-            placeholder="Buscar"
-            whileFocus={{ width: "300px" }}
-            transition={{ duration: 0.2 }}
-            className="w-[150px] h-10 p-2 bg-gray-200 rounded-r-full focus:ring-0 focus:border-0"
-          />
-        </div> */}
-      </div>
+      <div className="flex flex-row items-center justify-center"></div>
       <div className="flex items-center justify-end w-1/6 gap-8">
         <button onClick={toggleTheme}>
           {theme === "light" ? (
